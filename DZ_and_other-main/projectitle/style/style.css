@@ -65,8 +65,15 @@ h3,h4,h5{
 
 .nav-item{
     display: block;
+    transition-property: transform;
+    transition-duration: 200ms;
 }
 
+.nav-item:hover{
+    display: block;
+    transition-property: transform;
+    transition-duration: 200ms;
+}
 .circle
 {
     background-color: blue;
@@ -98,3 +105,8 @@ h3,h4,h5{
 .img-float{
     float: left;
 }
+
+.link-viseted{
+    color: blue;
+}
+
