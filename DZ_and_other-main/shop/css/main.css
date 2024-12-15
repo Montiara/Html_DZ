@@ -30,6 +30,33 @@ html{
     box-shadow: rgba(255, 255, 255, alpha);
 }
 
+.one-column-flex-container {}
+
+.one-line-flex-container {}
+
+.three-column-grid-container{
+    display: grid;
+    grid-template-columns: repeat(3, auto); 
+    gap: 20px;
+    grid-auto-rows: 100px;
+}
+
+.link{
+    color: red;
+    transition: color 100ms ease-in-out,
+                transform 100ms ease-in-out;
+}
+
+.link:hover{
+    text-decoration: underline;
+    transform: scale(1.1);
+}
+
+.link:active{
+    color: blue;
+    transform: scale(1);
+}
+
 .main-header{
     display: flex;
     align-items: center;
@@ -41,8 +68,39 @@ html{
     flex-grow: 1;
 }
 
-.main-footer{
+.cards{
 
+}
+
+.card{
+    background-color: red;
+    color: bisque;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.main-footer{
+    font-size: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.main-footer-item{
+    color: red;
+    text-decoration: none;
+    transition: color 100ms ease-in-out,
+                transform 100ms ease-in-out;
+}
+
+.main-footer-item:hover{
+    color: blue;
+    transform: scale(1.1);
+}
+
+.main-footer-item:active{
+    color: orange;
+    transform: scale(1);
 }
 
 .main-header-item{
@@ -50,35 +108,63 @@ html{
 }
 
 .main-header-title{
+    display: flex;
     font-size: 32px;
     text-decoration: none;
+    color: red;
+    transition: color 100ms ease-in-out,
+                transform 100ms ease-in-out;
+}
+
+.main-header-title:hover{
+    transform: scale(1.1);
+}
+
+.main-header-title:active{
+    transform: scale(1);
+    color: blue;
 }
 
 .main-header-nav{
-
+    display: flex;
+    justify-content: center;
 }
 
 .main-header-nav-item{
-    
+    padding: 10px;
+    color: red;
+    text-decoration: none;
+}
+
+.main-header-nav-item:hover{
+    text-decoration: underline;
+    transform: scale(1.1);
+}
+
+.main-header-nav-item:active{
+    color: blue;
+    transform: scale(1);
 }
 
 .btn{
     text-decoration: none;
     border: 2px solid red;
+    background-color: red;
     padding: 10px 20px;
     font-size: 20px;
     border-radius: 15px;
-    color:red;
+    color:bisque;
     transition: backgroung-color 100ms ease-in-out,
                 color 100ms ease-in-out,
                 transform 100ms ease-in-out;
 }
 
 .btn:hover{
-    background-color: red;
-    color:bisque;
+    background-color: bisque;
+    color: red;
 }
 
 .btn:active{
     transform: scale(0.9);
 }
+
