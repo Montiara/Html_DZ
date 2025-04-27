@@ -53,9 +53,8 @@ console.log(factar(5));
 function factarC(n) {
     if (n<0) return;
     if (n==0) return 1;
-    let a=n;
-    while (a>0){
-        
-    }
+    let res=1;
+    for (let i=1;i<=n;i++) res*=i;
+    return res;
 }
 console.log(factarC(5));
