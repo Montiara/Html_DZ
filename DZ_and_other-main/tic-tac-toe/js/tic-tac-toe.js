@@ -14,11 +14,69 @@ const getElement = (selector) => {
 //    console.log("Player switched");
 //}
 
-function name(params) {
-    
+class infoLabel {
+    element = getElement("tic-tac-toe__info")
+    className = "tic-tac-toe__info"
+
+    constructor(){
+
+    }
+
+    setWinner(winnerName) {
+        if (!isString(winnerName) || !this.hasElement()) return
+        this.element.innerText = `${winnerName} is winner!`
+    }
+
+    setTurn(activePlayerName) {
+        if (!isString(winnerName) || !this.hasElement()) return
+        this.element.innerText = `${winnerName} s turn`
+    }
+
+    setDraw() {
+        if (!this.hasElement()) return
+        this.element.innerText = `Draw!`
+    }
+
+    setNotStarted() {
+        if (!this.hasElement()) return
+        this.element.innerText = `Not started!`
+    }
+
+    hasElement() {
+        return this.element instanceof HTMLElement
+    }
 }
 
-class Cell {
+class HTMLObjects{
+    element = null
+    hasElement() {
+        return this.element instanceof HTMLElement
+    }
+}
+
+class Button extends Clickable{
+    startClassName = 'btn--green'
+    stopClassName = 'btn--red'
+
+    hasElement() {
+        return this.element instanceof HTMLElement
+    }
+
+    setStart() {
+        if (!this.hasElement()) return
+        this.element.innerText = `Start`
+        if (this.element.classList.contains(this.stopGameName)){
+            this.element.classList.remove(this.startClassName)
+        }
+    }
+
+    setStop() {
+        if (!this.hasElement()) return
+        this.element.innerText = `Stop`
+    }
+}
+
+class Cell extends Clickable {
     element = null;
     className = 'tic-tac-toe__cell';
     activeClassName = 'tic-tac-toe__cell--empty';
@@ -94,11 +152,15 @@ class Cell {
     }
 
     removeWinClass() {
-
+        if (this.element instanceof HTMLElement)
+            if (this.element.classList.contains(this.winClassName)) return
+            this.element.classList.remove(this.winClassName)
     }
 
     addWinClass() {
-        
+        if (this.element instanceof HTMLElement)
+            if (this.element.classList.contains(this.winClassName)) return
+            this.element.classList.add(this.winClassName)
     }
 }
 
@@ -162,6 +224,45 @@ class Field {
 
 //const Field = new Field(console.log,null,'hello in cell')
 
+class Clickable {
+    element = null
+    activeClassName = null
+    handler = null
+    handlerContext = null
+    handlerArgs = []
+    click = null
+
+    constructor() {
+
+    }
+
+    setHandler(newHandler, context, ...args) {
+        if (typeof newHandler !== 'function') return;
+        this.handler = newHandler;
+        if (typeof context === 'object') this.handlerContext = context;
+        else this.handlerContext = null;
+        this.handlerArgs = args;
+    }
+
+    activate() {
+        if (this.element === null) return;
+        console.dir(classList);
+        this.element.addEventListener('click', this.click)
+        //добавить слушатель клика
+        if (this.element.classList.contain(this.activeClassName)) return;
+        this.element.classList.add(this.activeClassName);
+    }
+
+    deactivate() {
+        if (this.element === null) return;
+        if (!this.element.classList.contain(this.activeClassName)) return;
+        this.element.classList.add(this.activeClassName);
+        this.element.removeEventListener('click', this.click)
+        //удалить слушатель клика
+        this.element.classList.remove(this.activeClassName);
+    }
+}
+
 class Game {
     containerEl = getElement("#tic-tac-toe")
     buttonEl = getElement("#tic-tac-toe_btn")
@@ -194,14 +295,28 @@ class Game {
     startGame() {
         console.log("Start");
         if (this.field instanceof Field) this.field.clear
+        this.field = new Field(this.turn, this)
+        this.initPlayer()
+        this.switchPlayer()
+        this.updateWithCombination()
+        this.isActive = true
+
         console.log(this);
     }
     stopGame() {
         console.log("Stop");
+        this.field.deactivate()
+        this.isActive = false
+    }
+    initPlayer() {
+        this.players.forEach((player) => {
+            player.filled = []
+        })
     }
     switchPlayer(firstPlayer = true) {
         console.log("Player switched");
         this.activePlayer = (this.activePlayerId + 1) % this.players.length
+        this.infoLabel.setTurn(this.activePlayer.name)
     }
     updateWithCombination() {
         this.winCombination = [[],[],[],[],[]]
